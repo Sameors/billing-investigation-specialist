@@ -15,8 +15,7 @@ AGENT_CARD = {
         {
             "id": "investigate_billing_dispute",
             "name": "investigate_billing_dispute",
-            "description": '''Accepts an order_id and returns a resolution decision (resolve/escalate) with a reason. 
-                              May pause pending human review for ambiguous cases.'''
+            "description": '''Accepts an order_id and returns a resolution decision (resolve/escalate) with a reason. May pause pending human review for ambiguous cases.'''
         }
     ]
 }
@@ -34,7 +33,7 @@ def submit_task():
     else:
         status = "completed"
     TASKS[task_id] = {"status": status, "result": result}
-    return jsonify({"task_id": task_id, "status": status})
+    return jsonify({"order_id": order_id, "status": result["decision"] , "reason": result["reason"],"task_id": task_id})
 
 @flask_app.route("/tasks/<task_id>", methods=["GET"])
 def check_task(task_id):
