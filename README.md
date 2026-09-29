@@ -123,7 +123,8 @@ Invoke-RestMethod -Uri "http://localhost:8001/tasks" -Method Post -ContentType "
 # Supply the human decision for that task
 Invoke-RestMethod -Uri "http://localhost:8001/tasks/<task_id>/input" -Method Post -ContentType "application/json" -Body '{"decision": "escalate"}'
 ```
-Acceptance baseline: see docs/acceptance-baseline/
+Acceptance baseline: see docs/acceptance-baseline/ `docs/acceptance-baseline`
+
 To run the graph without HTTP, use `src\pause.py` and `src\resume.py` directly.
 
 ## Screenshots
@@ -158,4 +159,14 @@ src/
   pause.py             Start a run and stop at the human-review interrupt
   resume.py            Resume that run from a new process
 learn/                 Scratch work (not part of the service)
+docs/                  docs / acceptance test json 
+    acceptance-baseline/
+        01_card.json
+        02_a1123_post.json
+        03_a1123_final.json
+        04_b2001_post.json
+        05_b2001_waiting.json
+        06_b2001_input.json
+        07_b2001_final.json
+        08_ledger_down.json
 ```
