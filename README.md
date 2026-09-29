@@ -123,7 +123,7 @@ Invoke-RestMethod -Uri "http://localhost:8001/tasks" -Method Post -ContentType "
 # Supply the human decision for that task
 Invoke-RestMethod -Uri "http://localhost:8001/tasks/<task_id>/input" -Method Post -ContentType "application/json" -Body '{"decision": "escalate"}'
 ```
-
+Acceptance baseline: see docs/acceptance-baseline/
 To run the graph without HTTP, use `src\pause.py` and `src\resume.py` directly.
 
 ## Screenshots
