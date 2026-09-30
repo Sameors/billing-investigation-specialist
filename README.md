@@ -2,7 +2,7 @@
 
 A specialist agent that investigates disputed billing transactions. It is built as a **LangGraph** state machine and exposed over the **Agent2Agent (A2A)** protocol, so another agent can discover it, hand it a case, and collect the result without sharing any code.
 
-It is called by the [Support Triage Agent](https://github.com/Sameors/support-triage) (link: adjust to your repo URL) through a tool named `invoke_specialist`. The triage agent only ever speaks MCP. This repo is the other side of that handoff.
+It is called by the [Support Triage Agent](https://github.com/Sameors/support-triage) through a tool named `invoke_specialist`. The triage agent only ever speaks MCP. This repo is the other side of that handoff.
 
 ## Why it exists
 
