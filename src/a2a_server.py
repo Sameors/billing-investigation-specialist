@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import uuid
 from graph import app as specialist_graph   
 from langgraph.types import interrupt, Command
-
+import os
 
 flask_app = Flask(__name__)
 TASKS = {}
@@ -62,4 +62,7 @@ def agent_card():
     return jsonify(AGENT_CARD)
 
 if __name__ == "__main__":
-    flask_app.run(port=8001)
+    #flask_app.run(port=8001)
+    host = os.getenv("BIND_HOST", "127.0.0.1")
+    port = int(os.getenv("BIND_PORT", 8001))
+    flask_app.run(host=host, port=port)

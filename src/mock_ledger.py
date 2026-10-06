@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -41,4 +42,7 @@ def get_dispute_flags(order_id):
     return jsonify({"isflagged": related, "note": f"{len(record['open_disputes'])} open disputes"})
 
 if __name__ == "__main__":
-    app.run(port=8000)
+    #app.run(port=8000)
+    host = os.getenv("BIND_HOST", "127.0.0.1")
+    port = int(os.getenv("BIND_PORT", 8000))
+    app.run(host=host, port=port)
