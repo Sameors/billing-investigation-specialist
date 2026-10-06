@@ -7,8 +7,9 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 import sqlite3 
 import requests
 import uuid
+import os
 # thread_id = str(uuid.uuid4())
-
+LEDGER_URL = os.getenv("LEDGER_URL", "http://localhost:8000")
 
 class SpecialistState(TypedDict):
     order_id: str
@@ -24,7 +25,7 @@ class SpecialistState(TypedDict):
     
 def fetch_ledger(state: SpecialistState) -> dict:
     try:
-        response = requests.get(f"http://localhost:8000/ledger/{state['order_id']}", timeout=2)
+        response = requests.get(f"{LEDGER_URL}/ledger/{state['order_id']}", timeout=2)
     except requests.exceptions.ConnectionError:
         return {"charges": [], "fetch_error": "connection_failed"}
     if response.status_code == 404:
@@ -60,14 +61,14 @@ def dual_check(state) -> dict:
 
 def check_refund_history(state: SpecialistState) -> dict:
     try:
-        response = requests.get(f"http://localhost:8000/refund-history/{state['order_id']}", timeout=2)
+        response = requests.get(f"{LEDGER_URL}/refund-history/{state['order_id']}", timeout=2)
     except requests.exceptions.ConnectionError:
         return {"refund_history": [{"isflagged": False, "note": "refund history service unreachable", "service_error": True}]}
     return {"refund_history":response.json()}
 
 def check_dispute_flags(state: SpecialistState) -> dict:
     try:
-        response = requests.get(f"http://localhost:8000/dispute-flags/{state['order_id']}", timeout=2)
+        response = requests.get(f"{LEDGER_URL}/dispute-flags/{state['order_id']}", timeout=2)
     except requests.exceptions.ConnectionError:
         return {"dispute_flag": [{"isflagged": False, "note": "dispute flag service unreachable", "service_error": True}]}
     return {"dispute_flag":response.json()}
