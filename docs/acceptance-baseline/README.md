@@ -32,8 +32,8 @@ The POST already returns the final result: the graph runs inside the request.
 3. `POST /tasks/<task_id>/input` with `{"decision": "escalate"}` → `06_b2001_input.json`
 4. `GET /tasks/<task_id>` → `07_b2001_final.json` — `status: escalate`
 
-### Test 4 — Ledger unavailable (A1123, ledger stopped)
-`POST /tasks` with `{"order_id": "A1123"}` → `08_ledger_down.json`
+### Test 4 — Ledger unavailable (B2001, ledger stopped)
+`POST /tasks` with `{"order_id": "B2001"}` → `08_ledger_down.json`
 
 Result: `fetch_error: connection_failed`, `status: input-required`.
 Missing ledger data leads to human review, not an automatic decision. Fails fast (2 s timeout).

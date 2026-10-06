@@ -2,7 +2,8 @@ from flask import Flask, jsonify, request
 import uuid
 from graph import app as specialist_graph   
 from langgraph.types import interrupt, Command
-
+import os
+AGENT_PUBLIC_URL = os.getenv("AGENT_PUBLIC_URL", "http://localhost:8001")
 
 flask_app = Flask(__name__)
 TASKS = {}
@@ -10,7 +11,7 @@ TASKS = {}
 AGENT_CARD = {
     "name": "billing-investigation-specialist",
     "description": "Billing specialist which checks history, disputes to resolve triage ticket.",   
-    "url": "http://localhost:8001", 
+    "url": AGENT_PUBLIC_URL, 
     "skills": [
         {
             "id": "investigate_billing_dispute",
@@ -62,4 +63,7 @@ def agent_card():
     return jsonify(AGENT_CARD)
 
 if __name__ == "__main__":
-    flask_app.run(port=8001)
+    #flask_app.run(port=8001)
+    host = os.getenv("BIND_HOST", "127.0.0.1")
+    port = int(os.getenv("BIND_PORT", 8001))
+    flask_app.run(host=host, port=port)
