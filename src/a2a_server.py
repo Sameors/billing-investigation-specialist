@@ -3,6 +3,7 @@ import uuid
 from graph import app as specialist_graph   
 from langgraph.types import interrupt, Command
 import os
+AGENT_PUBLIC_URL = os.getenv("AGENT_PUBLIC_URL", "http://localhost:8001")
 
 flask_app = Flask(__name__)
 TASKS = {}
@@ -10,7 +11,7 @@ TASKS = {}
 AGENT_CARD = {
     "name": "billing-investigation-specialist",
     "description": "Billing specialist which checks history, disputes to resolve triage ticket.",   
-    "url": "http://localhost:8001", 
+    "url": AGENT_PUBLIC_URL, 
     "skills": [
         {
             "id": "investigate_billing_dispute",
